@@ -1,14 +1,13 @@
 package com.project.personalfinancemanager.service;
 
-import com.project.personalfinancemanager.dto.ExpenseDTO;
 import com.project.personalfinancemanager.dto.IncomeDTO;
 import com.project.personalfinancemanager.entity.CategoryEntity;
-import com.project.personalfinancemanager.entity.ExpenseEntity;
 import com.project.personalfinancemanager.entity.IncomeEntity;
 import com.project.personalfinancemanager.entity.UserProfileEntity;
 import com.project.personalfinancemanager.repository.CategoryRepository;
 import com.project.personalfinancemanager.repository.IncomeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -58,6 +57,12 @@ public class IncomeService {
     public BigDecimal getTotalIncomeForCurrentUser(UserProfileEntity profile) {
         BigDecimal total = incomeRepository.findTotalIncomeByProfileId(profile.getId());
         return total != null ? total : BigDecimal.ZERO;
+    }
+
+    public List<IncomeDTO> filterIncomes(LocalDate startDate, LocalDate endDate,String keyword, Sort sort){
+        UserProfileEntity profile = profileService.getCurrentUserProfile();
+        List<IncomeEntity> incomes = incomeRepository.findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(profile.getId(),startDate,endDate,keyword,sort);
+        return incomes.stream().map(this::toDTO).toList();
     }
 
     private IncomeEntity toEntity(IncomeDTO dto, UserProfileEntity profile, CategoryEntity category){
