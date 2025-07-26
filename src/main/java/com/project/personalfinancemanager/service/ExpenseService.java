@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -64,6 +65,11 @@ public class ExpenseService {
         UserProfileEntity profile = profileService.getCurrentUserProfile();
         List<ExpenseEntity> expenses = expenseRepository.findByProfileIdAndDateBetweenAndNameContainingIgnoreCase(profile.getId(),startDate,endDate,keyword,sort);
         return expenses.stream().map(this::toDTO).toList();
+    }
+
+    public List<ExpenseDTO> getExpensesForUserOnDate(Long profileId, LocalDate date){
+        List<ExpenseEntity> list = expenseRepository.findByProfileIdAndDate(profileId,date);
+        return list.stream().map(this::toDTO).toList();
     }
 
     private ExpenseEntity toEntity(ExpenseDTO dto, UserProfileEntity profile, CategoryEntity category){
