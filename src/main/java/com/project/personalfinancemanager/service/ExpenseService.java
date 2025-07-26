@@ -9,6 +9,7 @@ import com.project.personalfinancemanager.repository.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -46,6 +47,16 @@ public class ExpenseService {
             throw new RuntimeException("Unauthorized to delete this expense");
         }
         expenseRepository.delete(entity);
+    }
+
+    public List<ExpenseDTO> getLatest5ExpensesForCurrentUser(UserProfileEntity profile){
+        List<ExpenseEntity> list = expenseRepository.findTop5ByProfileIdOrderByDateDesc(profile.getId());
+        return list.stream().map(this::toDTO).toList();
+    }
+
+    public BigDecimal getTotalExpenseForCurrentUser(UserProfileEntity profile) {
+        BigDecimal total = expenseRepository.findTotalExpenseByProfileId(profile.getId());
+        return total != null ? total : BigDecimal.ZERO;
     }
 
     private ExpenseEntity toEntity(ExpenseDTO dto, UserProfileEntity profile, CategoryEntity category){

@@ -1,7 +1,9 @@
 package com.project.personalfinancemanager.service;
 
+import com.project.personalfinancemanager.dto.ExpenseDTO;
 import com.project.personalfinancemanager.dto.IncomeDTO;
 import com.project.personalfinancemanager.entity.CategoryEntity;
+import com.project.personalfinancemanager.entity.ExpenseEntity;
 import com.project.personalfinancemanager.entity.IncomeEntity;
 import com.project.personalfinancemanager.entity.UserProfileEntity;
 import com.project.personalfinancemanager.repository.CategoryRepository;
@@ -9,6 +11,7 @@ import com.project.personalfinancemanager.repository.IncomeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,6 +48,16 @@ public class IncomeService {
             throw new RuntimeException("Unauthorized to delete this income");
         }
         incomeRepository.delete(entity);
+    }
+
+    public List<IncomeDTO> getLatest5IncomesForCurrentUser(UserProfileEntity profile){
+        List<IncomeEntity> list = incomeRepository.findTop5ByProfileIdOrderByDateDesc(profile.getId());
+        return list.stream().map(this::toDTO).toList();
+    }
+
+    public BigDecimal getTotalIncomeForCurrentUser(UserProfileEntity profile) {
+        BigDecimal total = incomeRepository.findTotalIncomeByProfileId(profile.getId());
+        return total != null ? total : BigDecimal.ZERO;
     }
 
     private IncomeEntity toEntity(IncomeDTO dto, UserProfileEntity profile, CategoryEntity category){
