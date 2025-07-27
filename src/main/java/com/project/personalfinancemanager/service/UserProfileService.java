@@ -32,7 +32,7 @@ public class UserProfileService {
     @Value("${activation.token.endpoint}")
     private String activationEndpoint;
 
-    @Value("http://localhost:8080")
+    @Value("${base.url}")
     private String baseUrl;
 
     public UserProfileDTO registerProfile(UserProfileDTO userprofileDTO){
