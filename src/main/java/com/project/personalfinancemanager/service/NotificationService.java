@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -28,7 +30,13 @@ public class NotificationService {
     public void sendDailyIncomeExpenseReminder(){
         log.info("Job started: sendDailyIncomeExpenseReminder()");
         List<UserProfileEntity> profiles = profileRepository.findAll();
+        LocalDateTime twoDaysAgo = LocalDateTime.now(ZoneId.of("Asia/Kolkata")).minusDays(2);
         for(UserProfileEntity profile:profiles){
+            if (profile.getCreatedAt() == null || profile.getCreatedAt().isBefore(twoDaysAgo)) {
+                log.info("Skipping email for new user: {}", profile.getEmail());
+                continue;
+            }
+
             String body = "Hi " + profile.getFullName() + ",<br><br>"
                     + "This is a friendly reminder to add your income and expenses for today in Personal Finance Manager.<br><br>"
                     + "<a href="+frontendUrl+" style='display:inline-block;padding:10px 20px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;font-weight:bold;'> Go to Personal Finance Manager</a>"
