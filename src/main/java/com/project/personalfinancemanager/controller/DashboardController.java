@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/dashboard")
 @RequiredArgsConstructor
-public class DashboardController {
+public class  DashboardController {
 
     private final DashboardService dashboardService;
 

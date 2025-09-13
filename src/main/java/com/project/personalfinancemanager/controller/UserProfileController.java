@@ -43,4 +43,10 @@ public class UserProfileController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message",e.getMessage()));
         }
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDTO> getPublicProfile() {
+        UserProfileDTO profileDTO = userProfileService.getPublicUserProfile(null);
+        return ResponseEntity.ok(profileDTO);
+    }
 }
