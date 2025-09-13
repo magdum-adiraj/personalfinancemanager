@@ -34,9 +34,10 @@ public class UserProfileController {
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> login(@RequestBody AuthDTO authDTO){
         try{
-            if(!userProfileService.isProfileActive(authDTO.getEmail())){
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message","Account is inactive. Please activate your account first"));
-            }
+//            Due to slow email service removing this check
+//            if(!userProfileService.isProfileActive(authDTO.getEmail())){
+//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message","Account is inactive. Please activate your account first"));
+//            }
             return ResponseEntity.ok(userProfileService.authenticateAndGenerateToken(authDTO));
 
         } catch (Exception e) {
