@@ -9,6 +9,7 @@ These APIs supports authentication, authorization, automated reporting and sched
 
 - **User Management**
   - User registration and login with JWT-based authentication.
+  - Storing user profile images using Cloudinary.
   - Email verification for account activation.
 
 - **Expense & Income Tracking**
@@ -37,6 +38,7 @@ These APIs supports authentication, authorization, automated reporting and sched
 | **Backend Framework** | Java Spring Boot |
 | **Database Layer** | Spring Data JPA |
 | **Mailing Service** | Brevo |
+| **Image Storing Service** | Cloduinary |
 | **Task Scheduling** | Spring Boot Scheduler / Cron Jobs |
 | **Authentication** | JWT (JSON Web Token) |
 | **Reporting** | Excel Generation using apache poi library |
