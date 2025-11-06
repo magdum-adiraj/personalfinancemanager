@@ -57,8 +57,8 @@ These APIs supports authentication, authorization, automated reporting and sched
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/personal-finance-manager-backend.git
-   cd personal-finance-manager-backend
+   git clone repo-link
+   cd repo-directory-name
 2. **Update the application.yml file**
   - Database credentials
   - Brevo API key and mail configurations
