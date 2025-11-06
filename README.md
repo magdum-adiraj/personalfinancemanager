@@ -53,24 +53,32 @@ These APIs supports authentication, authorization, automated reporting and sched
 - MySQL or any relational database
 - Brevo account for mailing setup
 
-### Steps
-1. Clone the repository:
-     bash:
-       git clone https://github.com/your-username/personal-finance-manager-backend.git
-       cd personal-finance-manager-backend
-2. Update the application.yml file with:
-     Database credentials
-     Brevo API key and mail configurations
-     JWT secret key
-3. Build and run:
-     mvn clean install
-     mvn spring-boot:run
-4.Access the APIs at:
-     http://localhost:8080/api/v1/
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/personal-finance-manager-backend.git
+   cd personal-finance-manager-backend
+Update the application.yml file with:
+
+Database credentials
+
+Brevo API key and mail configurations
+
+JWT secret key
+
+Build and run the project
+
+bash
+Copy code
+mvn clean install
+mvn spring-boot:run
+Access the APIs at:
+
+bash
+Copy code
+http://localhost:8080/api/v1/
 
 ---
 
 ## 🚀 Personal Finance Manager - Frontend
 Link: https://github.com/magdum-adiraj/personalfinancemanager-frontend
      
-mvn spring-boot:run
